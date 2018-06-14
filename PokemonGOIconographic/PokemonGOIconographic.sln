@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "PokemonGOIconographic", "PokemonGOIconographic\PokemonGOIconographic.jsproj", "{6D611166-858D-4A48-B147-D7A52683BBFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Android = Debug|Android
+		Debug|iOS = Debug|iOS
+		Debug|Windows-ARM = Debug|Windows-ARM
+		Debug|Windows-x64 = Debug|Windows-x64
+		Debug|Windows-x86 = Debug|Windows-x86
+		Release|Android = Release|Android
+		Release|iOS = Release|iOS
+		Release|Windows-ARM = Release|Windows-ARM
+		Release|Windows-x64 = Release|Windows-x64
+		Release|Windows-x86 = Release|Windows-x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Android.ActiveCfg = Debug|Android
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Android.Build.0 = Debug|Android
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Android.Deploy.0 = Debug|Android
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|iOS.ActiveCfg = Debug|iOS
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|iOS.Build.0 = Debug|iOS
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|iOS.Deploy.0 = Debug|iOS
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-ARM.ActiveCfg = Debug|Windows-ARM
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-ARM.Build.0 = Debug|Windows-ARM
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-ARM.Deploy.0 = Debug|Windows-ARM
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-x64.ActiveCfg = Debug|Windows-x64
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-x64.Build.0 = Debug|Windows-x64
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-x64.Deploy.0 = Debug|Windows-x64
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-x86.ActiveCfg = Debug|Windows-x86
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-x86.Build.0 = Debug|Windows-x86
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Debug|Windows-x86.Deploy.0 = Debug|Windows-x86
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Android.ActiveCfg = Release|Android
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Android.Build.0 = Release|Android
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Android.Deploy.0 = Release|Android
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|iOS.ActiveCfg = Release|iOS
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|iOS.Build.0 = Release|iOS
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|iOS.Deploy.0 = Release|iOS
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-ARM.ActiveCfg = Release|Windows-ARM
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-ARM.Build.0 = Release|Windows-ARM
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-ARM.Deploy.0 = Release|Windows-ARM
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-x64.ActiveCfg = Release|Windows-x64
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-x64.Build.0 = Release|Windows-x64
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-x64.Deploy.0 = Release|Windows-x64
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-x86.ActiveCfg = Release|Windows-x86
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-x86.Build.0 = Release|Windows-x86
+		{6D611166-858D-4A48-B147-D7A52683BBFD}.Release|Windows-x86.Deploy.0 = Release|Windows-x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

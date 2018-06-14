@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCI1AZ1YD-JUdUW9lATj_mvq6HYiZh6mNI",
+                authDomain: "pokemonicon11.firebaseapp.com",
+                databaseURL: "https://pokemonicon11.firebaseio.com",
+                projectId: "pokemonicon11",
+                storageBucket: "pokemonicon11.appspot.com",
+                messagingSenderId: "912797710467"
+            };
+            firebase.initializeApp(config);
+        </script>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Pokemon GO Iconographic</title>
+    </head>
+    <body>
+        <div class="cont_principal">
+            <div class="cont_centrar">
+                <div class="cont_login">
+                        <div class="cont_tabs_login">
+                            <ul class='ul_tabs'>
+                                <li class="active" id="tab_signIn">
+                                    <a href="#" class="tabs" onclick="sign_in_tab()">SIGN IN</a>
+                                    <span class="linea_bajo_nom"></span>
+                                </li>
+                                <li id="tab_signUp">
+                                    <a href="#up" class="tabs" onclick="sign_up_tab()">SIGN UP</a><span class="linea_bajo_nom"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cont_text_inputs">
+                            <input type="text" class="input_form_sign " placeholder="NAME" name="name_us" id="name_sign"/>
+                            <input type="text" class="input_form_sign d_block active_inp" placeholder="EMAIL" name="emauil_us" id="email_sign"/>
+                            <input type="password" class="input_form_sign d_block  active_inp" placeholder="PASSWORD" name="pass_us" id="pass_sign"/>
+                            <input type="password" class="input_form_sign" placeholder="CONFIRM PASSWORD" name="conf_pass_us" />
+                            <a href="#" class="link_forgot_pass d_block">Forgot Password ?</a>
+                            <div class="terms_and_cons d_none">
+                                <p><input type="checkbox" name="terms_and_cons" /> <label for="terms_and_cons">Accept  Terms and Conditions.</label></p>
+                            </div>
+                        </div>
+                        <div class="cont_btn">
+                            <button class="btn_sign" onclick="sign()">SIGN IN</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main_view">
+            <div class="items">
+                <div>
+                    <a href="#" onclick="">Add/remove pokemon</a>
+                </div>
+                <div>
+                    <a href="#" onclick="">Generate iconographic</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pokemons_view">
+            
+        </div>
+
+        <div class="generator_view">
+
+        </div>
+    </body>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script src="scripts/script.js"></script>
+    <link href="css/index.css" rel="stylesheet" />
+</html>
