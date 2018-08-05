@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 * {
     margin: 0px auto;
     padding: 0px;
@@ -17,28 +21,16 @@
     background-image: linear-gradient(-87deg, #F2F5F6 0%, #DDE5E8 100%);
 }
 
-.cont_centrar {
-    position: absolute;
-    width: 320px;
-    left: 50%;
-    top: 45%;
-    margin-left: -160px;
-    margin-top: -160px;
-}
 
 .cont_centrar {
+    width: 100%;
+    height: 100%;
     position: relative;
-    width: 320px;
     float: left;
     background-image: linear-gradient(-226deg, #FFFFFF 8%, #EEF3F5 100%);
     border-radius: 8px;
     transition: all 0.5s;
 }
-
-.cent_active {
-    box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.21);
-}
-
 
 .cont_tabs_login {
     position: relative;
@@ -89,7 +81,7 @@
     position: relative;
     float: left;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 60px;
 }
 
 .input_form_sign {
@@ -116,7 +108,9 @@
     height: 5px;
 }
 
-
+.terms_and_cons > p {
+    padding-left: 14%;
+}
 
 .input_form_sign:focus {
     border-bottom: 1px solid #FF8383;
@@ -125,7 +119,7 @@
 .link_forgot_pass {
     position: relative;
     margin-top: 0px;
-    margin-left: 30%;
+    margin-left: 31%;
     text-decoration: none;
     color: #999;
     font-size: 13px;
@@ -137,6 +131,7 @@
 .cont_btn {
     position: relative;
     float: left;
+    width: 100%;
 }
 
 .btn_sign {
@@ -149,7 +144,7 @@
     font-size: 14px;
     position: relative;
     float: left;
-    margin-left: 100px;
+    margin-left: 31%;
     margin-top: 20px;
     margin-bottom: 20px;
     cursor: pointer;

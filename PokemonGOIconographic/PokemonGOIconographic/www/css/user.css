@@ -1,0 +1,38 @@
+﻿#user_avatar {
+    width: 149px;
+    height: 148px;
+    border-radius: 100px;
+    border: 1px solid #f34e4e;
+    display: inline-block;
+    margin-top: 13%;
+}
+
+
+#userAvatarContainer {
+    width: 100%;
+    text-align: center;
+}
+
+.editButton {
+    width: 18px;
+}
+
+.userDetailDiv {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.detailDiv {
+    display: inline-block;
+}
+
+
+#editButton {
+    padding-top: 5px;
+    padding-left: 92%;
+    width: 25px;
+}
+
+.space{
+    width:10%;
+}

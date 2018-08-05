@@ -35,8 +35,6 @@
     $('#email_sign').attr('placeholder', 'E-MAIL');
 }
 
-
-
 function sign_in_tab() {
     var inputs = $('.input_form_sign');
     document.querySelectorAll('.ul_tabs > li')[0].className = "active";
@@ -106,11 +104,69 @@ function sign_in_tab() {
     $('#email_sign').attr('placeholder', 'NAME/E-MAIL');
 }
 
-
 window.onload = function () {
     document.querySelector('.cont_centrar').className = "cont_centrar cent_active";
 
 }
+
+function show_MainView(_userName)
+{  
+    loadPokeBox();
+    prepare_MainView_menu();   
+    prepare_MainView_user();
+    $('.main_view').show();
+}
+
+function prepare_MainView_menu() {
+    $('#pokemonList').toggleClass('active_menu');
+    $('#pokemonList_detail').css('display', 'block');
+}
+
+function prepare_MainView_news() {
+ 
+}
+
+function prepare_MainView_user() {
+    let userName = localStorage.getItem('userName');
+    let storageAvatar;
+    let userObject;
+    let strPath;
+
+    database.ref('users/' + userName).on("value", function (snapshot) {
+        console.log(snapshot.val());
+        userObject = snapshot.val();
+        strPath = 'Pokemons/' + userObject.avatar + '.png';
+        storageAvatar = storageRef.child(strPath);
+
+        storageAvatar.getDownloadURL().then(function (url) {
+            $('#user_avatar').attr("src", url);
+        }).catch(function (error) {
+                console.log(error.code);
+            });
+
+        $('#user_Name').text(localStorage.getItem('userName'));
+        $('#email').text(userObject.email);
+    });    
+}
+
+function storeUserInLocalStorage(_userName)
+{
+    let email = $('#email_sign');
+    let userNameDB;
+
+    userNameDB = _userName;
+    if (!_userName)
+    {
+        database.ref('users').orderByChild('email').equalTo(email.val()).on("value", function (snapshot) {
+            console.log(snapshot.val());
+            snapshot.forEach(function (data) {
+                console.log(data.key);
+                localStorage.setItem('userName', data.key);
+            });
+        });
+    }  
+}
+
 
 function sign()
 {   
@@ -120,39 +176,64 @@ function sign()
     let dbUserObject;
     let userObjectNode;
     let dbObject;
+    let emailReg = /^([A-Za-z0-9_\-.])+@/;
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    let yyyy = today.getFullYear();
 
     switch ($('.active').attr('id'))
     {
         case 'tab_signIn':
-            firebase.auth().signInWithEmailAndPassword(email.val(), pass.val()).then(function () {
-                alert('userLogged');
-            }).catch(function (error) {
-                firebase.database().ref('users/' + email.val()).on("value", function (snapshot) {
+            if (emailReg.test(email.val()))
+            {
+                firebase.auth().signInWithEmailAndPassword(email.val(), pass.val()).then(function () {
+                    show_MainView();
+                }).catch(function (error) {
+                    alert(error.code);
+                });
+            }
+            else
+            {
+                database.ref('users/' + email.val()).on("value", function (snapshot) {
                     dbUserObject = snapshot.val();
                     if (dbUserObject && dbUserObject.hasOwnProperty("email")) {
                         console.log(dbUserObject.email);
                         firebase.auth().signInWithEmailAndPassword(dbUserObject.email, pass.val()).then(function () {
-                            alert('userLogged');
-                        }).catch(function (error) {
-                            console.log("Error: " + error.code);
-                        });
-                    }
-                    else
-                    {
-                        alert('No auth');
-                    }
-                });            
-            });
+                            show_MainView(email.val());
+                    }).catch(function (error) {
+                       console.log("Error: " + error.code);
+                    });
+                        }
+                        else {
+                            alert('No auth');
+                        }
+                    });                
+            }
             
             break;
 
         case 'tab_signUp':
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            today = dd + '/' + mm + '/' + yyyy;
             firebase.auth().createUserWithEmailAndPassword(email.val(), pass.val()).then(function () {         
                 if (firebase.auth().currentUser !== null) {
+                    //user creation
                     firebase.database().ref('users/' + name.val()).set({
                         userId: firebase.auth().currentUser.uid,
-                        email: email.val()
+                        email: email.val(),
+                        avatar: 'Sinnoh/493',
+                        lastLogDay: today
                     });
+
+                    //userGraphics
+                    firebase.database().ref('users/' + name.val()+'/graphcs').set({});
+
                 }
                 alert('Account created');
             }).catch(function (error) {
@@ -161,4 +242,30 @@ function sign()
             break;
 
     }
- }
+
+    storeUserInLocalStorage();
+    modifyLastLogDate();
+}
+
+function modifyLastLogDate()
+{
+    database.ref('users/' + localStorage.getItem('userName')).update({
+        lastLogDay: date.getDay() + '-' + date.getMonth() + '-' + date.getFullYear()
+    });  
+}
+
+function set_MenuActive(element)
+{
+    let activeMainMenu = $('.active_menu');
+
+    if (activeMainMenu) {
+        activeMainMenu.toggleClass('active_menu');
+        $('#' + activeMainMenu[0].id + '_detail').css('display', 'none');
+    }
+    $('#' + element.id).toggleClass('active_menu');
+    $('#' + element.id+'_detail').css('display', 'block');
+}
+
+function generateIconographic() {
+
+}

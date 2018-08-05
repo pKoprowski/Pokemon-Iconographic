@@ -15,6 +15,10 @@
                 messagingSenderId: "912797710467"
             };
             firebase.initializeApp(config);
+            const storage = firebase.storage();
+            const database = firebase.database();
+            const storageRef = storage.ref();
+
         </script>
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -52,28 +56,59 @@
             </div>
         </div>
 
-        <div class="main_view">
-            <div class="items">
-                <div>
-                    <a href="#" onclick="">Add/remove pokemon</a>
+        <div class="main_view">              
+            <div id="container">
+                <div class="scrollmenu">
+                    <a id="pokemonList" href="#" onclick="set_MenuActive(this)">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2000px-Pok%C3%A9_Ball_icon.svg.png" />
+                        Pokemon List
+                    </a>
+                    <a id="iconographic" href="#" onclick="set_MenuActive(this)">                        
+                        Iconographic
+                    </a>
+                    <a id="news" onclick="set_MenuActive(this)">News</a>
+                    <a id="user" onclick="set_MenuActive(this)">User</a>
+                </div>         
+                <div id="pokemonList_detail" class="main_view_details">
+                    <div id="lastIconographics"></div>
+                    <div id="iconographicCreator"></div>
                 </div>
-                <div>
-                    <a href="#" onclick="">Generate iconographic</a>
+                <div id="iconographic_detail" class="main_view_details">
+                    <div id="pokeBox">
+
+                    </div>
+                </div>
+                <div id="user_detail" class="main_view_details">
+                    <img id="editButton" src="https://cdn4.iconfinder.com/data/icons/finance-banking-2/32/edit-512.png" />
+                    <div id="userAvatarContainer">
+                        <img id="user_avatar" />
+                    </div>
+                    <div id="user_info">
+                        <div id="user_Name_Div" class="userDetailDiv">
+                            <p class="detailDiv">Nazwa użytkownika</p><p class="space"></p><p id="user_Name" class="detailDiv">
+                        </div>
+                        <div id="email_Div" class="userDetailDiv">
+                            <p class="detailDiv">E-mail</p><p class="space"></p><p id="email" class="detailDiv"></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="news_detail" class="main_view_details">
+
                 </div>
             </div>
-        </div>
-
-        <div class="pokemons_view">
-            
-        </div>
-
-        <div class="generator_view">
-
-        </div>
+        </div>    
     </body>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
     <script src="scripts/script.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+    <script type="text/javascript" src="scripts/pokeList.js"></script>
+    <script type="text/javascript" src="scripts/pokeIconographic.js"></script>
     <link href="css/index.css" rel="stylesheet" />
+    <link href="css/mainView.css" rel="stylesheet" />
+    <link href="css/news.css" rel="stylesheet" />
+    <link href="css/user.css" rel="stylesheet" />
+    <link href="css/pokeList.css" rel="stylesheet" />
+    <link href="css/pokeIconographics.css" rel="stylesheet" />
 </html>
