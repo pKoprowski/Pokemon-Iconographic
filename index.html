@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCI1AZ1YD-JUdUW9lATj_mvq6HYiZh6mNI",
+                authDomain: "pokemonicon11.firebaseapp.com",
+                databaseURL: "https://pokemonicon11.firebaseio.com",
+                projectId: "pokemonicon11",
+                storageBucket: "pokemonicon11.appspot.com",
+                messagingSenderId: "912797710467"
+            };
+            firebase.initializeApp(config);
+            const storage = firebase.storage();
+            const database = firebase.database();
+            const storageRef = storage.ref('');
+            const today = new Date();
+
+            function snapshotToArray(snapshot) {
+                var returnArr = [];
+
+                snapshot.forEach(function (childSnapshot) {
+                    var item = childSnapshot.val();
+                    item.key = childSnapshot.key;
+
+                    returnArr.push(item);
+                });
+
+                return returnArr;
+            };
+        </script>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Pokemon GO Iconographic</title>
+    </head>
+    <body>
+        <div class="cont_principal">
+            <div class="cont_centrar">
+                <div class="cont_login">
+                        <div class="cont_tabs_login">
+                            <ul class='ul_tabs'>
+                                <li class="active" id="tab_signIn">
+                                    <a href="#" class="tabs" onclick="sign_in_tab()">Logowanie</a>
+                                    <span class="linea_bajo_nom"></span>
+                                </li>
+                                <li id="tab_signUp">
+                                    <a href="#up" class="tabs" onclick="sign_up_tab()">Rejestracja</a><span class="linea_bajo_nom"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cont_text_inputs">
+                            <input type="text" class="input_form_sign " placeholder="NAZWA" name="name_us" id="name_sign"/>
+                            <input type="text" class="input_form_sign d_block active_inp" placeholder="EMAIL" name="emauil_us" id="email_sign"/>
+                            <input type="password" class="input_form_sign d_block  active_inp" placeholder="HASŁO" name="pass_us" id="pass_sign"/>
+                            <input type="password" class="input_form_sign" placeholder="POTWIERDŹ HASŁO" name="conf_pass_us" />
+                            <a href="#" class="link_forgot_pass d_block">Forgot Password ?</a>
+                            <div class="terms_and_cons d_none">
+                                <p><input type="checkbox" name="terms_and_cons" /> <label for="terms_and_cons">Accept  Terms and Conditions.</label></p>
+                            </div>
+                        </div>
+                        <div class="cont_btn">
+                            <button class="btn_sign" onclick="sign()">Zaloguj się</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main_view">              
+            <div id="container">
+                <div class="scrollmenu">
+                    <a id="pokemonList" href="#" onclick="set_MenuActive(this)">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2000px-Pok%C3%A9_Ball_icon.svg.png" />
+                        Lista Pokemon
+                    </a>
+                    <a id="iconographic" href="#" onclick="set_MenuActive(this)">Ikonografika</a>
+                    <a id="news" onclick="set_MenuActive(this)">News</a>
+                    <a id="user" onclick="set_MenuActive(this)">Konto</a>
+                    <a id="pokeDb" onclick="set_MenuActive(this)">PokeBaza</a>
+                </div>         
+                
+                <div id="pokemonList_detail" class="main_view_details">
+                    <div id="pokeBox">
+
+                    </div>
+                </div>
+
+                <div id="iconographic_detail" class="main_view_details">
+                </div>
+                
+                <div id="user_detail" class="main_view_details">
+                    <img id="editButton" src="https://cdn4.iconfinder.com/data/icons/finance-banking-2/32/edit-512.png" />
+                    <div id="userAvatarContainer">
+                        <img id="user_avatar" />
+                    </div>
+                    <div id="user_info">
+                        <div id="user_Name_Div" class="userDetailDiv">
+                            <p class="detailDiv">Nazwa użytkownika</p><p class="space"></p><p id="user_Name" class="detailDiv">
+                        </div>
+                        <div id="email_Div" class="userDetailDiv">
+                            <p class="detailDiv">E-mail</p><p class="space"></p><p id="email" class="detailDiv"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="news_detail" class="main_view_details">
+
+                </div>
+
+                <div id="pokeDb_detail" class="main_view_details">
+                    <div class="scrollmenu bordetTopLine_grey">                        
+                        <a id="PokedbPreview" class="bordetBottomLine_RED" onclick="set_PokeDbMenuActive(this)">Przegląd</a>
+                        <a id="pokeAdding" onclick="set_PokeDbMenuActive(this)">Dodawanie</a>
+                    </div>     
+                    <div id="pokeAddingBox">                        
+                        <div id="dbInputs">
+                            <div id="boxDBAdding">
+                                <div id="addPokemonTab">
+                                    <div id="pokemon">
+                                        <div id="inputsDiv">
+                                            <p>Numer:</p><input type="text" name="pokeNumber" id="pokeNumber" size="15" onchange="activeFileButton()"/>
+                                            <p>Nazwa:</p><input type="text" name="pokeName" id="pokeName" size="15" onchange="activeFileButton()"/>
+                                            <p>Region:</p><select id="pokeRegions">
+                                                <option value="1#Kanto">Kanto</option>
+                                                <option value="2#Johto">Johto</option>
+                                                <option value="3#Hoenn">Hoenn</option>
+                                                <option value="4#Sinnoh">Sinnoh</option>
+                                            </select>
+                                            <input type="file" value="Wgraj plik" id="pokeFile" disabled>
+                                        </div>
+                                        <div id="previewImg">
+                                            <p>Ścieżka:<a id="filePath"></a></p>
+                                            <img onclick="deleteFileDB()"/>                                        
+                                        </div>
+
+                                        <div id="typeDiv">
+                                            <a>Typ</a>
+                                            <div class="divTypes">
+                                                <div class="types">
+                                                    <div id="type_Normal" onclick="setPokemonType('Normal', this)">Normal</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fire" onclick="setPokemonType('Fire', this)">Fire</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fighting" onclick="setPokemonType('Fighting', this)">Fighting</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Water" onclick="setPokemonType('Water', this)">Water</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Flying" onclick="setPokemonType('Flying', this)">Flying</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Grass" onclick="setPokemonType('Grass', this)">Grass</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Poison" onclick="setPokemonType('Poison', this)">Poison</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Electric" onclick="setPokemonType('Electric', this)">Electric</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ground" onclick="setPokemonType('Ground', this)">Ground</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Psychic" onclick="setPokemonType('Psychic', this)">Psychic</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Rock" onclick="setPokemonType('Rock', this)">Rock</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ice" onclick="setPokemonType('Ice', this)">Ice</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Bug" onclick="setPokemonType('Bug', this)">Bug</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Dragon" onclick="setPokemonType('Dragon', this)">Dragon</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ghost" onclick="setPokemonType('Ghost', this)">Ghost</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Dark" onclick="setPokemonType('Dark', this)">Dark</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Steel" onclick="setPokemonType('Steel', this)">Steel</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fairy" onclick="setPokemonType('Fairy', this)">Fairy</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                <!--                       <div>
+                                            <a>Efektywność</a>
+                                            <div class="divTypes">
+                                                <div class="types">
+                                                    <div id="superEffective_Normal" class="superEffective" onclick="setSuperEffective('Normal')">2x</div>
+                                                    <div id="type_Normal" class="type" onclick="showEffectiveAndWeak('Normal')">Normal</div>
+                                                    <div id="weak_Normal" class="weak" onclick="setWeak('Normal')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Fire" class="superEffective" onclick="setSuperEffective('Fire')">2x</div>
+                                                    <div id="type_Fire" class="type" onclick="showEffectiveAndWeak('Fire')">Fire</div>
+                                                    <div id="weak_Fire" class="weak" onclick="setWeak('Fire')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Fighting" class="superEffective" onclick="setSuperEffective('Fighting')">2x</div>
+                                                    <div id="type_Fighting" class="type" onclick="showEffectiveAndWeak('Fighting')">Fighting</div>
+                                                    <div id="weak_Fighting" class="weak" onclick="setWeak('Fighting')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Water" class="superEffective" onclick="setSuperEffective('Water')">2x</div>
+                                                    <div id="type_Water" class="type" onclick="showEffectiveAndWeak('Water')">Water</div>
+                                                    <div id="weak_Water" class="weak" onclick="setWeak('Water')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Flying" class="superEffective" onclick="setSuperEffective('Flying')">2x</div>
+                                                    <div id="type_Flying" class="type" onclick="showEffectiveAndWeak('Flying')">Flying</div>
+                                                    <div id="weak_Flying" class="weak" onclick="setWeak('Flying')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Grass" class="superEffective" onclick="setSuperEffective('Grass')">2x</div>
+                                                    <div id="type_Grass" class="type" onclick="showEffectiveAndWeak('Grass')">Grass</div>
+                                                    <div id="weak_Grass" class="weak" onclick="setWeak('Grass')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Poison" class="superEffective" onclick="setSuperEffective('Poison')">2x</div>
+                                                    <div id="type_Poison" class="type" onclick="showEffectiveAndWeak('Poison')">Poison</div>
+                                                    <div id="weak_Poison" class="weak" onclick="setWeak('Poison')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Electric" class="superEffective" onclick="setSuperEffective('Electric')">2x</div>
+                                                    <div id="type_Electric" class="type" onclick="showEffectiveAndWeak('Electric')">Electric</div>
+                                                    <div id="weak_Electric" class="weak" onclick="setWeak('Electric')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Ground" class="superEffective" onclick="setSuperEffective('Ground')">2x</div>
+                                                    <div id="type_Ground" class="type" onclick="showEffectiveAndWeak('Ground')">Ground</div>
+                                                    <div id="weak_Ground" class="weak" onclick="setWeak('Ground')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Psychic" class="superEffective" onclick="setSuperEffective('Psychic')">2x</div>
+                                                    <div id="type_Psychic" class="type" onclick="showEffectiveAndWeak('Psychic')">Psychic</div>
+                                                    <div id="weak_Psychic" class="weak" onclick="setWeak('Psychic')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Rock" class="superEffective" onclick="setSuperEffective('Rock')">2x</div>
+                                                    <div id="type_Rock" class="type" onclick="showEffectiveAndWeak('Rock')">Rock</div>
+                                                    <div id="weak_Rock" class="weak" onclick="setWeak('Rock')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Ice" class="superEffective" onclick="setSuperEffective('Ice')">2x</div>
+                                                    <div id="type_Ice" class="type" onclick="showEffectiveAndWeak('Ice')">Ice</div>
+                                                    <div id="weak_Ice" class="weak" onclick="setWeak('Ice')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Bug" class="superEffective" onclick="setSuperEffective('Bug')">2x</div>
+                                                    <div id="type_Bug" class="type" onclick="showEffectiveAndWeak('Bug')">Bug</div>
+                                                    <div id="weak_Bug" class="weak" onclick="setWeak('Bug')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Dragon" class="superEffective" onclick="setSuperEffective('Dragon')">2x</div>
+                                                    <div id="type_Dragon" class="type" onclick="showEffectiveAndWeak('Dragon')">Dragon</div>
+                                                    <div id="weak_Dragon" class="weak" onclick="setWeak('Dragon')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Ghost" class="superEffective" onclick="setSuperEffective('Ghost')">2x</div>
+                                                    <div id="type_Ghost" class="type" onclick="showEffectiveAndWeak('Ghost')">Ghost</div>
+                                                    <div id="weak_Ghost" class="weak" onclick="setWeak('Ghost')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Dark" class="superEffective" onclick="setSuperEffective('Dark')">2x</div>
+                                                    <div id="type_Dark" class="type" onclick="showEffectiveAndWeak('Dark')">Dark</div>
+                                                    <div id="weak_Dark" class="weak" onclick="setWeak('Dark')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Steel" class="superEffective" onclick="setSuperEffective('Steel')">2x</div>
+                                                    <div id="type_Steel" class="type" onclick="showEffectiveAndWeak('Steel')">Steel</div>
+                                                    <div id="weak_Steel" class="weak" onclick="setWeak('Steel')">0.5x</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="superEffective_Fairy" class="superEffective" onclick="setSuperEffective('Fairy')">2x</div>
+                                                    <div id="type_Fairy" class="type" onclick="showEffectiveAndWeak('Fairy')">Fairy</div>
+                                                    <div id="weak_Fairy" class="weak" onclick="setWeak('Fairy')">0.5x</div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div>
+                                            <input type="button" value="Dodaj" onclick="addToDatabase()"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pokemonAttacks">
+                                    <p>Szybki atak:</p><input type="text" name="pokeFastAttackName" id="pokeFastAttack"/> <div id="typeDiv">
+                                            <div class="divTypes">
+                                                <div class="types">
+                                                    <div id="type_Normal" onclick="setFastAttack('Normal', this)">Normal</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fire" onclick="setFastAttack('Fire', this)">Fire</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fighting" onclick="setFastAttack('Fighting', this)">Fighting</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Water" onclick="setFastAttack('Water', this)">Water</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Flying" onclick="setFastAttack('Flying', this)">Flying</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Grass" onclick="setFastAttack('Grass', this)">Grass</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Poison" onclick="setFastAttack('Poison', this)">Poison</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Electric" onclick="setFastAttack('Electric', this)">Electric</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ground" onclick="setFastAttack('Ground', this)">Ground</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Psychic" onclick="setFastAttack('Psychic', this)">Psychic</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Rock" onclick="setFastAttack('Rock', this)">Rock</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ice" onclick="setFastAttack('Ice', this)">Ice</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Bug" onclick="setFastAttack('Bug', this)">Bug</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Dragon" onclick="setFastAttack('Dragon', this)">Dragon</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ghost" onclick="setFastAttack('Ghost', this)">Ghost</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Dark" onclick="setFastAttack('Dark', this)">Dark</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Steel" onclick="setFastAttack('Steel', this)">Steel</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fairy" onclick="setFastAttack('Fairy', this)">Fairy</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <p>Ładowany:</p><input type="text" name="pokeChargeAttackName" id="pokeChargeAttack"/> <div id="typeDiv">
+                                            <div class="divTypes">
+                                                <div class="types">
+                                                    <div id="type_Normal" onclick="setChargeAttack('Normal', this)">Normal</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fire" onclick="setChargeAttack('Fire', this)">Fire</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fighting" onclick="setChargeAttack('Fighting', this)">Fighting</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Water" onclick="setChargeAttack('Water', this)">Water</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Flying" onclick="setChargeAttack('Flying', this)">Flying</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Grass" onclick="setChargeAttack('Grass', this)">Grass</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Poison" onclick="setChargeAttack('Poison', this)">Poison</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Electric" onclick="setChargeAttack('Electric', this)">Electric</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ground" onclick="setChargeAttack('Ground', this)">Ground</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Psychic" onclick="setChargeAttack('Psychic', this)">Psychic</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Rock" onclick="setChargeAttack('Rock', this)">Rock</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ice" onclick="setChargeAttack('Ice', this)">Ice</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Bug" onclick="setChargeAttack('Bug', this)">Bug</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Dragon" onclick="setChargeAttack('Dragon', this)">Dragon</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Ghost" onclick="setChargeAttack('Ghost', this)">Ghost</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Dark" onclick="setChargeAttack('Dark', this)">Dark</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Steel" onclick="setChargeAttack('Steel', this)">Steel</div>
+                                                </div>
+                                                <div class="types">
+                                                    <div id="type_Fairy" onclick="setChargeAttack('Fairy', this)">Fairy</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="PokedbPreviewBox">
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </body>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/MainScripts.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+    <script type="text/javascript" src="scripts/pokemonList.js"></script>
+    <script type="text/javascript" src="scripts/pokeDb.js"></script>
+    <link href="css/mainView.css" rel="stylesheet" />
+    <link href="css/news.css" rel="stylesheet" />
+    <link href="css/user.css" rel="stylesheet" />
+    <link href="css/pokeList.css" rel="stylesheet" />
+    <link href="css/pokeIconographics.css" rel="stylesheet" />
+    <link href="css/pokeDb.css" rel="stylesheet" />
+</html>

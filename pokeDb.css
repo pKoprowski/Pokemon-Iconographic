@@ -1,0 +1,191 @@
+﻿#previewImg {
+    height: 33%;
+    width: 37%;
+    margin-left: 3%;
+    margin-right: 3%;
+    float: right;
+}
+
+    #previewImg > img {
+        width: 70%;
+    }
+
+    #previewImg > p {
+        font-size: 12px;
+    }
+
+    #typeDiv {
+        clear: both;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+#pokeDbBox {
+    height: 100%;
+    display: none;
+}
+
+#pokeAddingBox {
+    height: 100%;
+    display: none;
+}
+
+    #pokeAddingBox > div {
+        padding: 10px;
+    }
+
+#pokeFile{
+    margin-top: 5px;
+    width: 60%;
+}
+
+#inputsDiv {
+    width: 47%;
+    float: left;
+    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #989898;
+}
+
+#PokedbPreviewBox {
+    display: block;
+    /*height: 100%;*/
+}
+
+.bordetBottomLine_RED {
+    border-bottom: 2px solid #af3131;
+}
+
+.bordetTopLine_grey {
+    border-top: 1px solid #787878;
+}
+
+#dbInputs > boxDBAdding > div {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.types {
+    width: 70px;
+    padding: 0 5px;
+    text-align: center;
+    display: inline-block;
+}
+
+.divTypes {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+#type_Normal {
+    background: #A8A878;
+    border: 1px solid #6D6D4E;
+}
+#type_Grass {
+    background: #78C850;
+    border: 1px solid #4E8234;
+}
+#type_Rock {
+    background: #B8A038;
+    border: 1px solid #786824;
+}
+#type_Ice {
+    background: #98D8D8;
+    border: 1px solid #638D8D;
+}
+#type_Dragon {
+    background: #7038F8;
+    border: 1px solid #4924A1;
+}
+#type_Steel {
+    background: #B8B8D0;
+    border: 1px solid #787887;
+}
+#type_Ghost {
+    background: #705898;
+    border: 1px solid #493963;
+}
+#type_Fairy {
+    background: #EE99AC;
+    border: 1px solid #9B6470;
+}
+#type_Dark {
+    background: #705848;
+    border: 1px solid #49392F;
+}
+#type_Bug {
+    background: #A8B820;
+    border: 1px solid #6D7815;
+}
+#type_Ground {
+    background: #E0C068;
+    border: 1px solid #927D44;
+}
+#type_Psychic {
+    background: #F85888;
+    border: 1px solid #A13959;
+}
+#type_Electric {
+    background: #F8D030;
+    border: 1px solid #A1871F;
+}
+#type_Poison {
+    background: #A040A0;
+    border: 1px solid #682A68;
+}
+#type_Flying {
+    background: #A890F0;
+    border: 1px solid #6D5E9C;
+}
+#type_Fire {
+    background: #F08030;
+    border: 1px solid #9C531F;
+}
+#type_Fighting {
+    background: #C03028;
+    border: 1px solid #7D1F1A;
+}
+#type_Water {
+    background: #6890F0;
+    border: 1px solid #445E9C
+}
+
+.selectedType {
+    border: 3px solid #329600 !important;
+}
+.type {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -icab-border-radius: 5px;
+    -o-border-radius: 5px;
+    position: relative;
+    z-index: 1000;
+}
+
+.weak {
+    background: #ff4f4f;
+    border-radius: 40px;
+    border: 1px solid #787887;
+    position: relative;
+    top: -20px;
+    z-index: 500;
+    padding-top: 19px;
+    visibility: hidden;
+}
+
+.superEffective {
+    background: #78c850;
+    border-radius: 40px;
+    border: 1px solid #787887;
+    position: relative;
+    top: 20px;
+    z-index: 500;
+    padding-bottom: 19px;
+    visibility: hidden;
+}
